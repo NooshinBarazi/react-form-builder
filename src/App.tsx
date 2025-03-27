@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <>react form builder</>
+      <div>react form builder</div>
     </>
   )
 }
