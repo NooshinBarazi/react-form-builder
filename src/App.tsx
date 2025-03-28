@@ -4,7 +4,7 @@ function App() {
 
   return (
     <>
-      <div>react form builder</div>
+      <div className="bg-red-200">react form builder</div>
     </>
   )
 }
