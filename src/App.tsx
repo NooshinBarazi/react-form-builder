@@ -1,11 +1,12 @@
+import { FormBuilder } from "./components/FormBuilder"
 
 
 function App() {
 
   return (
-    <>
-      <div className="bg-red-200">react form builder</div>
-    </>
+  <>
+  <FormBuilder />
+  </>
   )
 }
 
