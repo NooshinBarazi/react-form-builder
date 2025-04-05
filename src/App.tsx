@@ -1,13 +1,12 @@
-import { FormBuilder } from "./components/FormBuilder"
-
+import { FormBuilder } from "./components/FormBuilder";
+import { FormBUilderProvider } from "./context/FormBuilderContext";
 
 function App() {
-
   return (
-  <>
-  <FormBuilder />
-  </>
-  )
+    <FormBUilderProvider>
+      <FormBuilder />
+    </FormBUilderProvider>
+  );
 }
 
-export default App
+export default App;
