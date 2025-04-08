@@ -36,7 +36,12 @@ function formReducer(state: State, action: Action): State {
         fields: state.fields.map((f) =>
           f.id === action.payload.id ? { ...f, ...action.payload.field } : f
         ),
+      };case "REMOVE_FIELD":
+      return {
+        ...state,
+        fields: state.fields.filter((f) => f.id !== action.payload.id),
       };
+    
     default:
       return state;
   }

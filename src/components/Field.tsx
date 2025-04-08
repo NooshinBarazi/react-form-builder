@@ -31,6 +31,9 @@ export const Filed: React.FC<{ field: FormField }> = ({ field }) => {
       payload: { id: field.id, field: { options: updated } },
     });
   };
+  const handleDelete = () => {
+    dispatch({ type: "REMOVE_FIELD", payload: { id: field.id } });
+  };
   const renderInput = () => {
     switch (field.type) {
       case "textarea":
@@ -115,13 +118,21 @@ export const Filed: React.FC<{ field: FormField }> = ({ field }) => {
     }
   };
   return (
-    <div className="border p-4 rounded bg-gray-50">
-      <input
-        type="text"
-        value={label}
-        onChange={handleLabelChange}
-        className="w-full font-semibold text-lg border-b pb-1 mb-2"
-      />
+    <div className="border p-4 rounded bg-gray-50 relative">
+      {field.type !== "paragraph" && (
+        <input
+          type="text"
+          value={label}
+          onChange={handleLabelChange}
+          className="w-full font-semibold text-lg border-b pb-1 mb-2"
+        />
+      )}
+      <button
+        onClick={handleDelete}
+        className="absolute top-2 right-2 text-red-500 text-sm hover:underline"
+      >
+        حذف
+      </button>
       {renderInput()}
     </div>
   );
