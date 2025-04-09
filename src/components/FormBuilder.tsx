@@ -1,3 +1,4 @@
+import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea/dnd";
 import { useFormBUilder } from "../context/FormBuilderContext";
 import { FIELD_TYPES } from "../types/constants";
 import { Filed } from "./Field";
@@ -8,7 +9,17 @@ export const FormBuilder = () => {
   const handleAddField = (type: (typeof FIELD_TYPES)[number]) => {
     dispatch({ type: "ADD_FIELD", payload: { fieldType: type } });
   };
-
+  const handleDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    dispatch({
+      type: "REORDER_FIELDS",
+      payload: {
+        fromIndex: result.source.index,
+        toIndex: result.destination.index,
+      },
+    });
+  };
+  
   return (
     <div className="flex flex-col md:flex-row gap-8 p-8 max-w-6xl mx-auto">
       {/* left form */}
@@ -28,10 +39,36 @@ export const FormBuilder = () => {
       {/* right form */}
       <div className="bg-white rounded-xl shadow flex-1 p-6">
         <h1 className="text-2xl font-bold mb-4">Form Builder</h1>
-
-        {state.fields.map((field) => (
-          <Filed key={field.id} field={field} />
-        ))}
+        <DragDropContext onDragEnd={handleDragEnd}>
+        <Droppable droppableId="form-fields">
+          {(provided) => (
+            <div
+              {...provided.droppableProps}
+              ref={provided.innerRef}
+              className="space-y-4"
+            >
+              {state.fields.map((field, index) => (
+                <Draggable
+                  key={field.id}
+                  draggableId={field.id}
+                  index={index}
+                >
+                  {(provided) => (
+                    <div
+                      ref={provided.innerRef}
+                      {...provided.draggableProps}
+                      {...provided.dragHandleProps}
+                    >
+                      <Filed field={field} />
+                    </div>
+                  )}
+                </Draggable>
+              ))}
+              {provided.placeholder}
+            </div>
+          )}
+        </Droppable>
+      </DragDropContext>
       </div>
     </div>
   );

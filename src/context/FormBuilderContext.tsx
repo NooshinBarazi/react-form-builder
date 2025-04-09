@@ -36,12 +36,20 @@ function formReducer(state: State, action: Action): State {
         fields: state.fields.map((f) =>
           f.id === action.payload.id ? { ...f, ...action.payload.field } : f
         ),
-      };case "REMOVE_FIELD":
+      };
+      case "REMOVE_FIELD":
       return {
         ...state,
         fields: state.fields.filter((f) => f.id !== action.payload.id),
       };
-    
+      case "REORDER_FIELDS":
+        const updatedFields = [...state.fields];
+        const [movedItem] = updatedFields.splice(action.payload.fromIndex, 1);
+        updatedFields.splice(action.payload.toIndex, 0, movedItem);
+        return {
+          ...state,
+          fields: updatedFields,
+        };
     default:
       return state;
   }
