@@ -20,7 +20,7 @@ A modular and extensible form builder built with **React**, **TypeScript**, **Ta
 
 ## 📸 Demo
 
-![Demo Screenshot](./screenshot.png)
+![Demo Screenshot](./src/assets/Screenshot.png)
 
 ---
 
