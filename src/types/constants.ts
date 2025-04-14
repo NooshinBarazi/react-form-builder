@@ -7,3 +7,11 @@ export const FIELD_TYPES: FieldType[] = [
   "checkbox",
   "paragraph",
 ];
+
+export const FIELD_ICONS: Record<string, string> = {
+  text: "🔤",
+  textarea: "📝",
+  select: "🔽",
+  checkbox: "✅",
+  paragraph: "📄",
+};

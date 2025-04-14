@@ -1,7 +1,7 @@
 import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea/dnd";
 import { useFormBUilder } from "../context/FormBuilderContext";
-import { FIELD_TYPES } from "../types/constants";
-import { FormFieldCompound } from "./Field";
+import { FIELD_ICONS, FIELD_TYPES } from "../types/constants";
+import { FormFieldCompound } from "./FormFieldCompound";
 
 export const FormBuilder = () => {
   const { state, dispatch } = useFormBUilder();
@@ -21,25 +21,32 @@ export const FormBuilder = () => {
   };
   
   return (
-    <div className="flex flex-col md:flex-row gap-8 p-8 max-w-6xl mx-auto">
-      {/* left form */}
-      <div className="w-full md:w-64 bg-white rounded-xl shadow p-6">
-        <h1 className="text-2xl font-bold mb-4">Add Field</h1>
-        <div className="flex flex-col space-y-4">
-          {FIELD_TYPES.map((type) => (
-            <button
-              onClick={() => handleAddField(type)}
-              className="px-4 py-2 bg-blue-600 text-white rounded mb-4"
-            >
-              {type}
-            </button>
-          ))}
-        </div>
+    <div className="flex flex-col md:flex-row gap-6 p-8 max-w-7xl mx-auto">
+    {/* Sidebar - Add Field */}
+    <div className="w-full md:w-64 pr-4 border-r border-emerald-200">
+      <h2 className="text-xl font-bold mb-4 text-emerald-600">
+        🧱 Add Field
+      </h2>
+      <div className="space-y-3">
+        {FIELD_TYPES.map((type) => (
+          <button
+            key={type}
+            onClick={() => handleAddField(type)}
+            className="w-full flex items-center justify-center gap-2 px-4 py-2 bg-emerald-500 text-white rounded-lg shadow hover:bg-emerald-600 transition-all"
+          >
+            <span className="text-lg">{FIELD_ICONS[type]}</span>
+            <span className="capitalize">{type}</span>
+          </button>
+        ))}
       </div>
-      {/* right form */}
-      <div className="bg-white rounded-xl shadow flex-1 p-6">
-        <h1 className="text-2xl font-bold mb-4">Form Builder</h1>
-        <DragDropContext onDragEnd={handleDragEnd}>
+    </div>
+
+    {/* Main Content - Form Builder */}
+    <div className="flex-1 max-w-[700px] mx-auto">
+      <h2 className="text-2xl font-bold mb-6 text-emerald-600">
+        🧩 Form Builder
+      </h2>
+      <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="form-fields">
           {(provided) => (
             <div
@@ -69,7 +76,7 @@ export const FormBuilder = () => {
           )}
         </Droppable>
       </DragDropContext>
-      </div>
     </div>
+  </div>
   );
 };
