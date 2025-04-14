@@ -1,7 +1,7 @@
 import { DragDropContext, Draggable, Droppable, DropResult } from "@hello-pangea/dnd";
 import { useFormBUilder } from "../context/FormBuilderContext";
 import { FIELD_TYPES } from "../types/constants";
-import { Filed } from "./Field";
+import { FormFieldCompound } from "./Field";
 
 export const FormBuilder = () => {
   const { state, dispatch } = useFormBUilder();
@@ -59,7 +59,7 @@ export const FormBuilder = () => {
                       {...provided.draggableProps}
                       {...provided.dragHandleProps}
                     >
-                      <Filed field={field} />
+                      <FormFieldCompound field={field} />
                     </div>
                   )}
                 </Draggable>
